@@ -1,0 +1,18 @@
+
+<html ng-app="employeeApp">
+<!-- <script type="text/javascript" src="/home/sri/sails_angular/sails_angular/bower_components/angular/angular.min.js"></script> -->
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/angular-route.min.js"></script>
+
+<sript type="text/javascript" src="js/app.js"></script>
+
+<body ng-controller="EmployeeController">
+  <ul>
+    <li ng-repeat="emp in employees">
+      <p> {{emp.name}} </p>
+      <p> {{emp.empnum}}</p>
+      <p> {{emp.email}}</p>
+    </li>
+  </ul>
+</body>
+</html>

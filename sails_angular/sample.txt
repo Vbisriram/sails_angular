@@ -1,0 +1,1 @@
+mongod -f "/etc/mongodb.conf" --remove --serviceName mongodb12345 --serviceDisplayName "MongoDB Server Instance 12345" --serviceDescription "MongoDB Server Instance running on 12345"
