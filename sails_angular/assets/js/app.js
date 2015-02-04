@@ -1,13 +1,17 @@
-var employeeApp = angular.module('employeeApp', ['ngRoute']); // Defines an angular module
-
-employeeApp.controller('EmployeeController', function($scope, $http, $log) {
-  //$log is used for console log
-  //$http is used to communicate with the server
-  //$scope defines the scope of controller
-  $scope.employees = [];
-  $http.get("http://localhost:1440/employee/")
-    .success(function(data) {
-      $scope.employees = data;
-      $log.info($scope.employees);
-    });
-});
+// define([
+// 	'angular',
+// 	'sails.io'
+// ], function(angular, io) {
+//
+// 	var socket = io.connect(),
+// 		app;
+//
+// 	socket.on('connect', function socketConnected() {
+// 		console.log('Socket is now connected');
+// 	});
+//
+// 	app = angular.module('todoIt', []);
+//
+// 	return app;
+//
+// });
