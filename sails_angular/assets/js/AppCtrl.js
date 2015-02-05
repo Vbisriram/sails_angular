@@ -1,15 +1,32 @@
  var myApp = angular.module('myApp', ['ngRoute']);
 
- myApp.controller('mainCtrl', function($scope, $http, $log, $location, $window) {
- 	$scope.name = "Dinesh";
- 	$scope.user = {
- 		name: "default_name",
- 		number: "12",
- 		email: "default@mm.com"
+ //  ................... Services ...................... //
+
+ myApp.service('SuccessService', function() {
+ 	var userEntered = {
+ 		name: 'sample',
+ 		id: '1'
  	};
- 	$scope.returned = "";
+ 	console.log("Service registered");
+ 	var addUser = function(newObj) {
+ 		userEntered.push(newObj);
+ 	}
+
+ 	var getUser = function() {
+ 		console.log(userEntered);
+ 		console.log("getters");
+ 		//return "hii";
+ 		return userEntered;
+ 	}
+
+ 	return {
+ 		addUser: addUser,
+ 		getUser: getUser
+ 	};
 
  });
+
+ //  ................. Routes ......................... //
 
 
  myApp.config(['$routeProvider',
@@ -32,9 +49,25 @@
  			// 		redirectTo: '/'
  			// 	});
  	}
+
  ]);
 
- myApp.controller('AddOrderController', function($scope, $http, $log, $window) {
+
+ //  ................. Controllers .................... //
+
+ myApp.controller('mainCtrl', function($scope, $http, $log, $location, $window) {
+ 	$scope.name = "Dinesh";
+ 	$scope.user = {
+ 		name: "default_name",
+ 		number: "12",
+ 		email: "default@mm.com"
+ 	};
+ 	$scope.returned = "";
+
+ });
+
+ myApp.controller('AddOrderController', function($scope, $http, $log, $window,
+ 	SuccessService) {
  	console.log("hello");
  	$scope.message = 'This is Add new order screen';
  	$scope.submit = function() {
@@ -51,11 +84,16 @@
 
  		//	console.log('User clicked submit with after the xcadad ', $scope.employees);
  		// 	$location.path('localhost:1330/success');
- 		$window.location.href = '/success';
-
+ 		var returned = $scope.returned;
+ 		//console.log("-------------------------------" + returned)
+ 		var callToSuccessService = function(returned) {
+ 			SuccesssService.addUser(returned);
+ 			console.log("Success pushed!")
+ 		}
+ 		$window.location.href = '#/success';
  	}
- });
 
+ });
 
  myApp.controller('ShowOrderController', function($scope) {
  	console.log("hello showing");
@@ -63,9 +101,14 @@
 
  });
 
- myApp.controller('SuccessController', function($scope) {
+ myApp.controller('SuccessController', function($scope, SuccessService) {
  	console.log("Success page showing");
  	$scope.message = 'This is success screen';
+ 	$scope.msg = SuccessService.getUser();
+ 	$scope.name = $scope.msg.name;
+ 	console.log($scope.msg);
+ 	//console.log(SuccessService);
+ 	//$scope.addedUser = SuccesssService.getUser();
 
  });
  //
